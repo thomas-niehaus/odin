@@ -1,0 +1,67 @@
+ODIN Project
+============
+
+This project contains Fortran 90 source code for the ODIN program. The code constructs the overlap matrix for the DFTB method and prints the results to a file (oversqr.dat). The code also works for short distances, below the first entry of the Slater-Koster files.
+
+Example input
+-------------
+'geo.gen'		     | Structure in DFTB gen format
+'/home/niehaus/sk/mio-0-1/'  | Prefix for Slater-Koster files
+'-'                          | Separator
+'.skf'                       | Suffix
+1 2                          | Max. angular momentum (s=1, p=2, d=3) for each species
+                             | order like in .gen file
+			     
+Usage
+-----
+odin < odin.inp 
+
+Directory structure:
+--------------------
+- src/         Contains all source code files (*.f90, *.f)
+- Makefile     Build instructions
+
+The main program file is: src/odin.f90
+
+How to Compile:
+---------------
+1. Open a terminal.
+2. Change to the directory above src/ (where the Makefile is located).
+3. Run:
+
+   make
+
+This compiles the program and produces an executable called 'odin'.
+
+How to Install:
+---------------
+To install the executable system-wide (requires sudo):
+
+   sudo make install
+
+This installs the binary to /usr/local/bin by default.
+
+To install to a custom location:
+
+   make install PREFIX=/path/to/your/directory
+
+For example, to install in your local bin:
+
+   make install PREFIX=~/bin
+
+Make sure your install location is in your PATH if you want to run 'odin' directly.
+
+Cleaning Up:
+------------
+To remove object files and the executable:
+
+   make clean
+
+Requirements:
+-------------
+- A Fortran compiler (e.g., gfortran)
+- GNU make
+
+Tested with:
+- gfortran 10.2
+- GNU Make 4.3

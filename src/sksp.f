@@ -1,0 +1,11 @@
+      SUBROUTINE SKSP(X,X2,I,J,R2,IOVPAR,EM,EMT,NE)
+      IMPLICIT REAL*8 (A-H,O-Z)
+      DIMENSION X(6),X2(6),PARM(13),EM(NE,3),EMT(NE,3)
+      EXTERNAL IOVPAR
+C
+      ID=IOVPAR(I,J,R2,PARM)
+      DO 10 L=1,3
+      EM(1,L)=X(L)*PARM(9)
+   10 EMT(L,1)=-EM(1,L)
+      RETURN
+      END
