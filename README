@@ -1,7 +1,7 @@
 ODIN Project
 ============
 
-This project contains Fortran 90 source code for the ODIN program. The code constructs the overlap matrix for the DFTB method and prints the results to a file (oversqr.dat). The code also works for short distances, below the first entry of the Slater-Koster files.
+This project contains Fortran 90 source code for the ODIN program. The code constructs the overlap matrix for the DFTB method and prints the results to a file (oversqr.dat). The code also works for short distances, below the first entry of the Slater-Koster files. Note that special Slater-Koster files are required in order for the code to work properly. Slater-Koster files tabulate the overlap as a function of distance. For many existing files (for example most of the files found on dftb.org) the real data values start only at some minimal distance which is normally never sampled in simulations. The values for shorter distances are just dummy values (for example 20*1.0). In order to generate valid Slater-Koster files you may use the https://github.com/dftbplus/skprogs toolchain and set GridStart equal to GridSeparation. 
 
 Example input
 -------------
@@ -65,3 +65,4 @@ Requirements:
 Tested with:
 - gfortran 10.2
 - GNU Make 4.3
+
