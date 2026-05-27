@@ -75,6 +75,27 @@ program odin
   read *,(lmax(i),i = 1,ntype)
   call gettab(ntype, skfn)
 
+  ! Fix first line of SK table for homo-nuclear interactions in case not properly tabulated
+  do i = 1, ntype
+    if (lmax(i) == 1) then
+      skstab(:,1,i,i) = 0.0d0
+      skstab(10,1,i,i) = 1.0d0
+    else if (lmax(i) == 2) then
+      skstab(:,1,i,i) = 0.0d0
+      skstab(6,1,i,i) = 1.0d0
+      skstab(7,1,i,i) = 1.0d0
+      skstab(10,1,i,i) = 1.0d0
+    else
+      skstab(:,1,i,i) = 0.0d0
+      skstab(1,1,i,i) = 1.0d0
+      skstab(2,1,i,i) = 1.0d0
+      skstab(3,1,i,i) = 1.0d0            
+      skstab(6,1,i,i) = 1.0d0
+      skstab(7,1,i,i) = 1.0d0
+      skstab(10,1,i,i) = 1.0d0      
+    end if
+  end do
+
   !! calculation of indices for matrices S 
   ind(1) = 0
   do j = 1,nn 
@@ -97,8 +118,9 @@ program odin
         do i = 1,3 
            dif(i) = x(i,k) - x(i,j) 
         enddo
+         
         call slkode(dif,izpj,izpk,au,skspar)
-
+        
         do n = 1,ind(k+1)-ind(k) 
            do m = 1,ind(j+1)-ind(j) 
               overl(ind(j)+icv(m),ind(k)+icv(n)) = overl(ind(j)+icv(m),ind(k)+icv(n)) + au(m,n)
